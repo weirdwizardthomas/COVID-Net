@@ -4,6 +4,8 @@
 
 **Recording to webinar on [How we built COVID-Net in 7 days with Gensynth](https://darwinai.news/fny)**
 
+**Update 11/28/2021:** We released a new training dataset with over 30,000 CXR images from a multinational cohort of over 16,400 patients. The dataset contains 16,490 positive COVID-19 images from over 2,800 patients. The COVIDx V9A dataset is for detection of no pneumonia/non-COVID-19 pneumonia/COVID-19 pneumonia, and COVIDx V9B dataset is for COVID-19 positive/negative detection.\
+**Update 10/19/2021:** We released a new COVID-Net CXR-3 [model](docs/models.md) for COVID-19 positive/negative detection which was trained and tested on the COVIDx8B dataset leveraging the new MEDUSA (Multi-scale Encoder-Decoder Self-Attention) architecture.\
 **Update 04/21/2021:** We released a new COVIDNet CXR-S [model](docs/models.md) and [COVIDxSev](create_COVIDxSev.ipynb) dataset for airspace severity grading in COVID-19 positive patient CXR images. For more information on training, testing and inference please refer to severity [docs](docs/covidnet_severity.md).\
 **Update 03/20/2021:** We released a new COVID-Net CXR-2 [model](docs/models.md) for COVID-19 positive/negative detection which was trained on the new COVIDx8B dataset with 16,352 CXR images from a multinational cohort of 15,346 patients from at least 51 countries. The test results are based on the new COVIDx8B test set of 200 COVID-19 positive and 200 negative CXR images.\
 **Update 03/19/2021:** We released updated datasets and dataset curation scripts. The COVIDx V8A dataset and create_COVIDx.ipynb are for detection of no pneumonia/non-COVID-19 pneumonia/COVID-19 pneumonia, and COVIDx V8B dataset and create_COVIDx_binary.ipynb are for COVID-19 positive/negative detection. Both datasets contain over 16000 CXR images with over 2300 positive COVID-19 images.\
@@ -30,7 +32,8 @@ The COVID-19 pandemic continues to have a devastating effect on the health and w
 
 For a detailed description of the methodology behind COVID-Net and a full description of the COVIDx dataset, please click [here](https://www.nature.com/articles/s41598-020-76550-z).
 
-For a detailed description of the methodology behind COVID-Net based deep neural networks for geographic extent and opacity extent scoring of chest X-rays for SARS-CoV-2 lung disease severity, please click [here](https://arxiv.org/abs/2005.12855).
+For a detailed description of the methodology behind COVIDNet CXR-S severity assessment, please click [here](https://www.mdpi.com/2075-4418/12/1/25). \
+For more information on COVIDNet-S deep neural networks for geographic extent and opacity extent scoring of chest X-rays for SARS-CoV-2 lung disease severity, please click [here](https://arxiv.org/abs/2005.12855).
 
 For a detailed description of the methodology behind COVIDNet-CT and the associated dataset of 104,009 CT images from 1,489 patients, please click [here](https://github.com/haydengunraj/COVIDNet-CT).
 
@@ -130,6 +133,35 @@ Additional requirements to generate dataset:
 
 ## Results
 These are the final results for the COVIDNet models.
+
+### COVIDNet-CXR-3 on COVIDx8B (200 COVID-19 test)
+<div class="tg-wrap"><table class="tg">
+  <tr>
+    <th class="tg-7btt" colspan="3">Sensitivity (%)</th>
+  </tr>
+  <tr>
+    <td class="tg-7btt">Negative</td>
+    <td class="tg-7btt">Positive</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">99.0</td>
+    <td class="tg-c3ow">97.5</td>
+  </tr>
+</table></div>
+
+<div class="tg-wrap"><table class="tg">
+  <tr>
+    <th class="tg-7btt" colspan="3">Positive Predictive Value (%)</th>
+  </tr>
+  <tr>
+    <td class="tg-7btt">Negative</td>
+    <td class="tg-7btt">Positive</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">97.5</td>
+    <td class="tg-c3ow">99.0</td>
+  </tr>
+</table></div>
 
 ### COVIDNet-CXR-2 on COVIDx8B (200 COVID-19 test)
 <div class="tg-wrap"><table class="tg">

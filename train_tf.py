@@ -18,8 +18,8 @@ parser.add_argument('--weightspath', default='models/COVIDNet-CXR-2', type=str,
 parser.add_argument('--metaname', default='model.meta', type=str, help='Name of ckpt meta file')
 parser.add_argument('--ckptname', default='model', type=str, help='Name of model ckpts')
 parser.add_argument('--n_classes', default=2, type=int, help='Number of detected classes, defaults to 2')
-parser.add_argument('--trainfile', default='labels/train_COVIDx8B.txt', type=str, help='Path to train file')
-parser.add_argument('--testfile', default='labels/test_COVIDx8B.txt', type=str, help='Path to test file')
+parser.add_argument('--trainfile', default='labels/train_COVIDx9B.txt', type=str, help='Path to train file')
+parser.add_argument('--testfile', default='labels/test_COVIDx9B.txt', type=str, help='Path to test file')
 parser.add_argument('--name', default='COVIDNet', type=str, help='Name of folder to store training checkpoints')
 parser.add_argument('--datadir', default='data', type=str, help='Path to data folder')
 parser.add_argument('--covid_weight', default=1., type=float, help='Class weighting for covid')
@@ -108,7 +108,7 @@ with tf.Session() as sess:
     labels_tensor = graph.get_tensor_by_name(args.label_tensorname)
     sample_weights = graph.get_tensor_by_name(args.weights_tensorname)
     pred_tensor = graph.get_tensor_by_name(args.logit_tensorname)
-    is_training = graph.get_tensor_by_name(args.training_tensorname)
+    training_tensor = graph.get_tensor_by_name(args.training_tensorname)
     # loss expects unscaled logits since it performs a softmax on logits internally for efficiency
 
     # Define loss and optimizer
@@ -141,11 +141,11 @@ with tf.Session() as sess:
     for epoch in range(args.epochs):
         for i in range(total_batch):
             # Run optimization
-            batch_x, batch_y, weights = next(generator)
+            batch_x, batch_y, weights, is_training = next(generator)
             sess.run(train_op, feed_dict={image_tensor: batch_x,
                                           labels_tensor: batch_y,
                                           sample_weights: weights,
-                                          is_training: True})
+                                          training_tensor: is_training})
             progbar.update(i+1)
 
         if epoch % display_step == 0:
